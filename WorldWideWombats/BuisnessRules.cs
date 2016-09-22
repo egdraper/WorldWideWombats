@@ -1,12 +1,13 @@
-﻿namespace WorldWideWombats
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace WorldWideWombats
 {
     /// <summary>
     /// Contains the entered user information.
     /// </summary>
     public class BusinessRules
     {
-        
-    
         private DArray employees;
         private static BusinessRules instance;
         private static int index;
@@ -44,10 +45,12 @@
         /// Returns and array of Employees 
         /// </summary>
         /// <returns></returns>
-        public Employee[] get()
+        public DArray get()
         {
-            var a = employees.GetEnumerator();
-            return null;
+            var emp = employees;
+            employees.Reset();
+            return emp;
+            
         }
 
         public Employee getNext()

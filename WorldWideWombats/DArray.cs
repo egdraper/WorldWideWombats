@@ -1,19 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace WorldWideWombats
 {
-    public class DArray : IEnumerable<Employee>
+    public class DArray : IEnumerable, IEnumerator
     {
         //Consts
         private const int START_CAPACITY = 4;
-        private const int START_INDEX = 0;
+        private const int START_INDEX = -1;
         private const int GROWTH_AMOUNT = 2;
+        private const int START_TOP = 0;
 
         //Private
         private int _AIndex = START_INDEX;
         private int _Capacity = START_CAPACITY;
-        private int _Top = START_INDEX;
+        private int _Top = START_TOP;
 
         private Employee[] _tempArray;
         private Employee[] _employees;
@@ -21,7 +23,7 @@ namespace WorldWideWombats
         private static DArray instance;
 
         //public
-        private Employee Current { get { return _employees[_AIndex]; } }
+        public object Current { get { return _employees[_AIndex]; } }
         
         /// <summary>
         /// Instantiates the array
@@ -31,6 +33,11 @@ namespace WorldWideWombats
             this._employees = new Employee[START_CAPACITY];
         }
 
+
+        /// <summary>
+        /// Instaniates an instance of the object
+        /// </summary>
+        /// <returns></returns>
         public static DArray Instantiate()
         {
             if (instance == null)
@@ -56,6 +63,7 @@ namespace WorldWideWombats
             {
                 _employees[i] = _tempArray[i];
             }
+            _tempArray = null;
         }
 
 
@@ -68,7 +76,7 @@ namespace WorldWideWombats
             this._employees[_Top] = employee;
             _Top++;
 
-            if (_Top >= _Capacity)
+            if (_Top == _Capacity)
             {
                 this.Resize();
             }
@@ -81,40 +89,38 @@ namespace WorldWideWombats
         /// <returns>Returns and Employee</returns>
         public Employee GetValue()
         {
-            return Current;
+            return (Employee)Current;
         }
 
         /// <summary>
-        /// Th
+        /// This moves to the next employee for the itterator 
         /// </summary>
         /// <returns>Returns a bool value to determine if there is a next</returns>
-        public void MoveNext()
+        public bool MoveNext()
         {
             //moves next if there is a value to move to
-            if (_AIndex >= _Top)
-            {
-                Reset();
-            }
-            else
-            {
-                _AIndex++;
-            }   
+            _AIndex++;
+            return (_AIndex < _employees.Length);  
         }
         
-        private void Reset()
+        /// <summary>
+        /// Resets the index back to 0;
+        /// </summary>
+        public void Reset()
         {
             _AIndex = START_INDEX;
         }
 
-        public IEnumerator<Employee> GetEnumerator()
+
+        /// <summary>
+        /// This returns the Enumerated object
+        /// </summary>
+        /// <returns>IEnumerator</returns>
+        public IEnumerator GetEnumerator()
         {
-            return ((IEnumerable<Employee>)_employees).GetEnumerator();
+            return this;
         }
        
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
     }
 }

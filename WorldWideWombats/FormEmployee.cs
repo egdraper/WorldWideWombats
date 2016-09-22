@@ -197,10 +197,10 @@ namespace WorldWideWombats
             {
                 foreach(Employee emp in testEmployees.get())
                 {
-                    if(emp != null)
-                        lboxEmployees.Items.Add(emp.FirstName + " " + emp.LastName + "; " + emp.EmpType.ToString());
+                    if (emp != null)
+                       lboxEmployees.Items.Add(emp.FirstName + " " + emp.LastName + "; " + emp.EmpType.ToString());
                 }
-
+               
                 lblTestPassFail.ForeColor = System.Drawing.Color.Green;
                 lblTestPassFail.Text = "Test Passed";
             }
