@@ -57,7 +57,6 @@ namespace WorldWideWombats
                     GrossSales = 12,
                 };
 
-
                 businessRules = BusinessRules.Instantiate;
                 businessRules.Add(salary);
                 businessRules.Add(hourly);

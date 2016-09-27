@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace WorldWideWombats
 {
@@ -14,7 +15,8 @@ namespace WorldWideWombats
         private static BusinessRules instance;
         public static uint NextEmployeeId = START_EMP_ID;
 
-        private BusinessRules() {
+        private BusinessRules()
+        {
             employees = new SortedDictionary<uint, Employee>();
         }
 
@@ -39,9 +41,18 @@ namespace WorldWideWombats
         /// <param name="employee"></param>
         public void Add(Employee employee)
         {
-            employee.EmpID = NextEmployeeId;
-            employees.Add(employee.EmpID, employee);
-            NextEmployeeId++;
+            if (employee == null)
+            {
+                MessageBox.Show("There was no Employee to add");
+            }
+            else
+            {
+                employee.EmpID = NextEmployeeId;
+                employees.Add(employee.EmpID, employee);
+                NextEmployeeId++;
+            }
+
+
         }
 
         /// <summary>
@@ -63,7 +74,7 @@ namespace WorldWideWombats
         {
             this.employees.Clear();
         }
-       
+
     }
 }
 

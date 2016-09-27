@@ -17,7 +17,7 @@ namespace WorldWideWombats
             InitializeComponent();
             EmployeeType.DataSource = Enum.GetNames(typeof(EType));
             this.businessRules = BusinessRules.Instantiate;
-            this.tboxEmployeeId.Text = BusinessRules.NextEmployeeId.ToString();
+            this.UpdateEmployeeId();
 
         }
 
@@ -46,7 +46,7 @@ namespace WorldWideWombats
             }
             //to here
         }
-        
+
         /// <summary>
         /// Changes which form fields are available for a given type
         /// </summary>
@@ -54,7 +54,7 @@ namespace WorldWideWombats
         /// <param name="e"></param>
         private void EmployeeType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var type = GetEmployeeType();           
+            var type = GetEmployeeType();
             clearPanels();
 
             //Swithces the form type
@@ -65,7 +65,7 @@ namespace WorldWideWombats
                     break;
                 case EType.SALES:
                     pnlSales.Visible = true;
-                    pnlSalary.Visible = true;                 
+                    pnlSalary.Visible = true;
                     break;
                 case EType.HOURLY:
                     pnlHourly.Visible = true;
@@ -76,7 +76,7 @@ namespace WorldWideWombats
                 default:
                     break;
             }
-         
+
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace WorldWideWombats
             tboxHourlyRate.Text = string.Empty;
             tboxMonthlySalary.Text = string.Empty;
             tboxGrossSalary.Text = string.Empty;
-         }
+        }
 
         /// <summary>
         /// Gets the type from employee from the employee dropdown list
@@ -123,63 +123,71 @@ namespace WorldWideWombats
             var type = GetEmployeeType();
             Employee employee = null;
 
-            //creates and instance for the type chosen
-            switch (type)
+            try
             {
-                case EType.SALARY:
-                    employee = new Salary()
-                    {
-                        EmpType = type,
-                        FirstName = tboxFirstName.Text,
-                        LastName = tboxLastName.Text,
-                        MonthlySalary = Convert.ToDouble(tboxMonthlySalary.Text)
-                        
-                    };
-                    
-                    break;
-                case EType.SALES:
-                    employee = new Sales()
-                    {
-                        EmpType = type,
-                        FirstName = tboxFirstName.Text,
-                        LastName = tboxLastName.Text,
-                        MonthlySalary = Convert.ToDouble(tboxMonthlySalary.Text),
-                        GrossSales = Convert.ToDouble(tboxGrossSalary.Text),
-                        Commission = Convert.ToDouble(tboxCommission.Text)                
-                    };
-                    break;
-                case EType.HOURLY:
-                    employee = new Hourly()
-                    {
-                        EmpType = type,
-                        FirstName = tboxFirstName.Text,
-                        LastName = tboxLastName.Text,
-                        HourlyRate = Convert.ToDouble(tboxHourlyRate.Text),
-                        HoursWorked = Convert.ToDouble(tboxHoursWorked.Text)
-                    };
+                //creates and instance for the type chosen
+                switch (type)
+                {
+                    case EType.SALARY:
+                        employee = new Salary()
+                        {
+                            EmpType = type,
+                            FirstName = tboxFirstName.Text,
+                            LastName = tboxLastName.Text,
+                            MonthlySalary = Convert.ToDouble(tboxMonthlySalary.Text)
+                        };
 
-                    break;
-                case EType.CONTRACT:
-                    employee = new Contract()
-                    {
-                        EmpType = type,
-                        FirstName = tboxFirstName.Text,
-                        LastName = tboxLastName.Text,
-                        ContractWage = Convert.ToDouble(tboxContractWage.Text)
-                    };
-                    break;
-                default:
-                    break;
+                        break;
+                    case EType.SALES:
+                        employee = new Sales()
+                        {
+                            EmpType = type,
+                            FirstName = tboxFirstName.Text,
+                            LastName = tboxLastName.Text,
+                            MonthlySalary = Convert.ToDouble(tboxMonthlySalary.Text),
+                            GrossSales = Convert.ToDouble(tboxGrossSalary.Text),
+                            Commission = Convert.ToDouble(tboxCommission.Text)
+                        };
+                        break;
+                    case EType.HOURLY:
+                        employee = new Hourly()
+                        {
+                            EmpType = type,
+                            FirstName = tboxFirstName.Text,
+                            LastName = tboxLastName.Text,
+                            HourlyRate = Convert.ToDouble(tboxHourlyRate.Text),
+                            HoursWorked = Convert.ToDouble(tboxHoursWorked.Text)
+                        };
+
+                        break;
+                    case EType.CONTRACT:
+                        employee = new Contract()
+                        {
+                            EmpType = type,
+                            FirstName = tboxFirstName.Text,
+                            LastName = tboxLastName.Text,
+                            ContractWage = Convert.ToDouble(tboxContractWage.Text)
+                        };
+                        break;
+                    default:
+                        break;
+                }
+                this.businessRules.Add(employee);
+
+                clearAllBoxes();
+
+                //lists emplyees that have been entered.
+                lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + type.ToString());
+
+            }
+            catch
+            {
+                MessageBox.Show("Not all field have entered values. Please enter a value for every field");
             }
 
             //adds employee to memory using the lazy loaded Singleton 
-           
-            this.businessRules.Add(employee);
 
-            clearAllBoxes();
 
-            //lists emplyees that have been entered.
-            lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + type.ToString());
         }
 
         /// <summary>
@@ -193,13 +201,13 @@ namespace WorldWideWombats
             BusinessRules testEmployees = Test.ClassInstantationTest();
             if (testEmployees != null)
             {
-                foreach(var emp in testEmployees.GetAll())
+                foreach (var emp in testEmployees.GetAll())
                 {
                     var employee = emp.Value;
                     if (emp.Value != null)
-                       lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + employee.EmpType.ToString());
+                        lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + employee.EmpType.ToString());
                 }
-               
+
                 lblTestPassFail.ForeColor = System.Drawing.Color.Green;
                 lblTestPassFail.Text = "Test Passed";
             }
@@ -208,6 +216,13 @@ namespace WorldWideWombats
                 lblTestPassFail.ForeColor = System.Drawing.Color.Red;
                 lblTestPassFail.Text = "Test Failed";
             }
+
+            UpdateEmployeeId();
+        }
+
+        private void UpdateEmployeeId()
+        {
+            this.tboxEmployeeId.Text = BusinessRules.NextEmployeeId.ToString();
         }
     }
 }
