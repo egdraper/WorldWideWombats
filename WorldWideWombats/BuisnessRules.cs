@@ -8,12 +8,14 @@ namespace WorldWideWombats
     /// </summary>
     public class BusinessRules
     {
-        private DArray employees;
+        private const uint START_EMP_ID = 0;
+
+        private SortedDictionary<uint, Employee> employees;
         private static BusinessRules instance;
-        private static int index;
+        public static uint NextEmployeeId = START_EMP_ID;
 
         private BusinessRules() {
-            employees = DArray.Instantiate();
+            employees = new SortedDictionary<uint, Employee>();
         }
 
         /// <summary>
@@ -35,29 +37,31 @@ namespace WorldWideWombats
         /// Adds new employee to the list of employees
         /// </summary>
         /// <param name="employee"></param>
-        public void add(Employee employee)
+        public void Add(Employee employee)
         {
-            employees.AddValue(employee);
-            index++;
+            employee.EmpID = NextEmployeeId;
+            employees.Add(employee.EmpID, employee);
+            NextEmployeeId++;
         }
 
         /// <summary>
         /// Returns and array of Employees 
         /// </summary>
         /// <returns></returns>
-        public DArray get()
+        public SortedDictionary<uint, Employee> GetAll()
         {
-            var emp = employees;
-            employees.Reset();
-            return emp;
-            
+            return employees;
         }
 
-        public Employee getNext()
+        public Employee GetEmployee(uint employeeId)
         {
-            var emp = employees.GetValue();
-            employees.MoveNext();
+            var emp = employees[employeeId];
             return emp;
+        }
+
+        public void Clear()
+        {
+            this.employees.Clear();
         }
        
     }

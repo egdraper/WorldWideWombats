@@ -16,7 +16,9 @@ namespace WorldWideWombats
         {
             InitializeComponent();
             EmployeeType.DataSource = Enum.GetNames(typeof(EType));
-          
+            this.businessRules = BusinessRules.Instantiate;
+            this.tboxEmployeeId.Text = BusinessRules.NextEmployeeId.ToString();
+
         }
 
         /// <summary>
@@ -96,7 +98,7 @@ namespace WorldWideWombats
             tboxHoursWorked.Text = string.Empty;
             tboxCommission.Text = string.Empty;
             tboxContractWage.Text = string.Empty;
-            tboxEmployeeId.Text = string.Empty;
+            tboxEmployeeId.Text = BusinessRules.NextEmployeeId.ToString();
             tboxFirstName.Text = string.Empty;
             tboxLastName.Text = string.Empty;
             tboxHourlyRate.Text = string.Empty;
@@ -127,7 +129,6 @@ namespace WorldWideWombats
                 case EType.SALARY:
                     employee = new Salary()
                     {
-                        EmpID = tboxEmployeeId.Text,
                         EmpType = type,
                         FirstName = tboxFirstName.Text,
                         LastName = tboxLastName.Text,
@@ -139,7 +140,6 @@ namespace WorldWideWombats
                 case EType.SALES:
                     employee = new Sales()
                     {
-                        EmpID = tboxEmployeeId.Text,
                         EmpType = type,
                         FirstName = tboxFirstName.Text,
                         LastName = tboxLastName.Text,
@@ -151,7 +151,6 @@ namespace WorldWideWombats
                 case EType.HOURLY:
                     employee = new Hourly()
                     {
-                        EmpID = tboxEmployeeId.Text,
                         EmpType = type,
                         FirstName = tboxFirstName.Text,
                         LastName = tboxLastName.Text,
@@ -163,7 +162,6 @@ namespace WorldWideWombats
                 case EType.CONTRACT:
                     employee = new Contract()
                     {
-                        EmpID = tboxEmployeeId.Text,
                         EmpType = type,
                         FirstName = tboxFirstName.Text,
                         LastName = tboxLastName.Text,
@@ -175,8 +173,8 @@ namespace WorldWideWombats
             }
 
             //adds employee to memory using the lazy loaded Singleton 
-            this.businessRules = BusinessRules.Instantiate;
-            this.businessRules.add(employee);
+           
+            this.businessRules.Add(employee);
 
             clearAllBoxes();
 
@@ -195,10 +193,11 @@ namespace WorldWideWombats
             BusinessRules testEmployees = Test.ClassInstantationTest();
             if (testEmployees != null)
             {
-                foreach(Employee emp in testEmployees.get())
+                foreach(var emp in testEmployees.GetAll())
                 {
-                    if (emp != null)
-                       lboxEmployees.Items.Add(emp.FirstName + " " + emp.LastName + "; " + emp.EmpType.ToString());
+                    var employee = emp.Value;
+                    if (emp.Value != null)
+                       lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + employee.EmpType.ToString());
                 }
                
                 lblTestPassFail.ForeColor = System.Drawing.Color.Green;

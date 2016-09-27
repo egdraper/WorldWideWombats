@@ -1,0 +1,8 @@
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\bin\Debug\WorldWideWombatsTests.dll
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\bin\Debug\WorldWideWombatsTests.pdb
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\bin\Debug\WorldWideWombats.exe
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\bin\Debug\WorldWideWombats.pdb
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\obj\Debug\WorldWideWombatsTests.csprojResolveAssemblyReference.cache
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\obj\Debug\WorldWideWombatsTests.dll
+C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombatsTests\obj\Debug\WorldWideWombatsTests.pdb

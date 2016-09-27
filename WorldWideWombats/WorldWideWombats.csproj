@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="BuisnessRules.cs" />
     <Compile Include="Contract.cs" />
-    <Compile Include="DArray.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EType.cs" />
     <Compile Include="FormEmployee.cs">

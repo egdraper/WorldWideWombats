@@ -15,12 +15,12 @@ namespace WorldWideWombats
         {
             BusinessRules businessRules;
             
+
             try
             {
                 //check Contract
                 var contract = new Contract()
                 {
-                    EmpID = "TestId1",
                     EmpType = EType.CONTRACT,
                     FirstName = "c_First",
                     LastName = "c_Last",
@@ -30,7 +30,6 @@ namespace WorldWideWombats
                 //check Hourly
                 var hourly = new Hourly()
                 {
-                    EmpID = "TestId2",
                     EmpType = EType.HOURLY,
                     FirstName = "h_First",
                     LastName = "h_Last",
@@ -41,7 +40,6 @@ namespace WorldWideWombats
                 //Check Salary
                 var salary = new Salary()
                 {
-                    EmpID = "TestId2",
                     EmpType = EType.SALARY,
                     FirstName = "sa_First",
                     LastName = "sa_Last",
@@ -51,7 +49,6 @@ namespace WorldWideWombats
                 //Check Sales
                 var sales = new Sales()
                 {
-                    EmpID = "TestId4",
                     EmpType = EType.SALES,
                     FirstName = "s_First",
                     LastName = "s_Last",
@@ -62,10 +59,10 @@ namespace WorldWideWombats
 
 
                 businessRules = BusinessRules.Instantiate;
-                businessRules.add(salary);
-                businessRules.add(hourly);
-                businessRules.add(contract);
-                businessRules.add(sales);
+                businessRules.Add(salary);
+                businessRules.Add(hourly);
+                businessRules.Add(contract);
+                businessRules.Add(sales);
             }
             catch
             {
