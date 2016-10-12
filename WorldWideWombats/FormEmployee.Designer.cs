@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tboxEmployeeId = new System.Windows.Forms.TextBox();
             this.tboxFirstName = new System.Windows.Forms.TextBox();
             this.tboxLastName = new System.Windows.Forms.TextBox();
             this.tboxHourlyRate = new System.Windows.Forms.TextBox();
             this.tboxHoursWorked = new System.Windows.Forms.TextBox();
-            this.lblEmployeeId = new System.Windows.Forms.Label();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lblLastName = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -58,23 +56,19 @@
             this.lblEmployeeListTitle = new System.Windows.Forms.Label();
             this.btnTestData = new System.Windows.Forms.Button();
             this.lblTestPassFail = new System.Windows.Forms.Label();
+            this.lblEmployeeId = new System.Windows.Forms.Label();
+            this.tboxEmployeeId = new System.Windows.Forms.TextBox();
+            this.btnOpenExistin = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.pnlHourly.SuspendLayout();
             this.pnlSalary.SuspendLayout();
             this.pnlSales.SuspendLayout();
             this.pnlContractor.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tboxEmployeeId
-            // 
-            this.tboxEmployeeId.Location = new System.Drawing.Point(153, 57);
-            this.tboxEmployeeId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tboxEmployeeId.Name = "tboxEmployeeId";
-            this.tboxEmployeeId.Size = new System.Drawing.Size(163, 20);
-            this.tboxEmployeeId.TabIndex = 0;
-            // 
             // tboxFirstName
             // 
-            this.tboxFirstName.Location = new System.Drawing.Point(153, 127);
+            this.tboxFirstName.Location = new System.Drawing.Point(153, 84);
             this.tboxFirstName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tboxFirstName.Name = "tboxFirstName";
             this.tboxFirstName.Size = new System.Drawing.Size(163, 20);
@@ -82,7 +76,7 @@
             // 
             // tboxLastName
             // 
-            this.tboxLastName.Location = new System.Drawing.Point(153, 162);
+            this.tboxLastName.Location = new System.Drawing.Point(153, 120);
             this.tboxLastName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tboxLastName.Name = "tboxLastName";
             this.tboxLastName.Size = new System.Drawing.Size(163, 20);
@@ -106,20 +100,10 @@
             this.tboxHoursWorked.TabIndex = 4;
             this.tboxHoursWorked.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkForLetters);
             // 
-            // lblEmployeeId
-            // 
-            this.lblEmployeeId.AutoSize = true;
-            this.lblEmployeeId.Location = new System.Drawing.Point(69, 58);
-            this.lblEmployeeId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblEmployeeId.Name = "lblEmployeeId";
-            this.lblEmployeeId.Size = new System.Drawing.Size(65, 13);
-            this.lblEmployeeId.TabIndex = 6;
-            this.lblEmployeeId.Text = "Employee Id";
-            // 
             // lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
-            this.lblFirstName.Location = new System.Drawing.Point(69, 127);
+            this.lblFirstName.Location = new System.Drawing.Point(69, 84);
             this.lblFirstName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFirstName.Name = "lblFirstName";
             this.lblFirstName.Size = new System.Drawing.Size(57, 13);
@@ -129,7 +113,7 @@
             // lblLastName
             // 
             this.lblLastName.AutoSize = true;
-            this.lblLastName.Location = new System.Drawing.Point(69, 164);
+            this.lblLastName.Location = new System.Drawing.Point(69, 122);
             this.lblLastName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.Size = new System.Drawing.Size(58, 13);
@@ -150,7 +134,7 @@
             // 
             this.EmployeeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EmployeeType.FormattingEnabled = true;
-            this.EmployeeType.Location = new System.Drawing.Point(153, 91);
+            this.EmployeeType.Location = new System.Drawing.Point(153, 49);
             this.EmployeeType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.EmployeeType.Name = "EmployeeType";
             this.EmployeeType.Size = new System.Drawing.Size(163, 21);
@@ -170,7 +154,7 @@
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(69, 93);
+            this.lblType.Location = new System.Drawing.Point(69, 51);
             this.lblType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(52, 13);
@@ -363,11 +347,54 @@
             this.lblTestPassFail.Text = "label13";
             this.lblTestPassFail.Visible = false;
             // 
+            // lblEmployeeId
+            // 
+            this.lblEmployeeId.AutoSize = true;
+            this.lblEmployeeId.Location = new System.Drawing.Point(69, 153);
+            this.lblEmployeeId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEmployeeId.Name = "lblEmployeeId";
+            this.lblEmployeeId.Size = new System.Drawing.Size(65, 13);
+            this.lblEmployeeId.TabIndex = 6;
+            this.lblEmployeeId.Text = "Employee Id";
+            // 
+            // tboxEmployeeId
+            // 
+            this.tboxEmployeeId.Enabled = false;
+            this.tboxEmployeeId.Location = new System.Drawing.Point(153, 152);
+            this.tboxEmployeeId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tboxEmployeeId.Name = "tboxEmployeeId";
+            this.tboxEmployeeId.Size = new System.Drawing.Size(163, 20);
+            this.tboxEmployeeId.TabIndex = 0;
+            // 
+            // btnOpenExistin
+            // 
+            this.btnOpenExistin.Location = new System.Drawing.Point(562, 57);
+            this.btnOpenExistin.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOpenExistin.Name = "btnOpenExistin";
+            this.btnOpenExistin.Size = new System.Drawing.Size(89, 27);
+            this.btnOpenExistin.TabIndex = 23;
+            this.btnOpenExistin.Text = "Open Existing";
+            this.btnOpenExistin.UseVisualStyleBackColor = true;
+            this.btnOpenExistin.Click += new System.EventHandler(this.btnOpenExistin_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(562, 88);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(89, 27);
+            this.btnSave.TabIndex = 24;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // FormEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 408);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnOpenExistin);
             this.Controls.Add(this.lblTestPassFail);
             this.Controls.Add(this.btnTestData);
             this.Controls.Add(this.lblEmployeeListTitle);
@@ -403,13 +430,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tboxEmployeeId;
         private System.Windows.Forms.TextBox tboxFirstName;
         private System.Windows.Forms.TextBox tboxLastName;
         private System.Windows.Forms.TextBox tboxHourlyRate;
         private System.Windows.Forms.TextBox tboxHoursWorked;
-        private System.Windows.Forms.Label lblEmployeeId;
         private System.Windows.Forms.Label lblFirstName;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.Label label4;
@@ -434,6 +458,10 @@
         private System.Windows.Forms.Label lblEmployeeListTitle;
         private System.Windows.Forms.Button btnTestData;
         private System.Windows.Forms.Label lblTestPassFail;
+        private System.Windows.Forms.Label lblEmployeeId;
+        private System.Windows.Forms.TextBox tboxEmployeeId;
+        private System.Windows.Forms.Button btnOpenExistin;
+        private System.Windows.Forms.Button btnSave;
     }
 }
 

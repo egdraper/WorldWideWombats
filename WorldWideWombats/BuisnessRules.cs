@@ -1,21 +1,24 @@
-﻿namespace WorldWideWombats
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace WorldWideWombats
 {
     /// <summary>
     /// Contains the entered user information.
     /// </summary>
     public class BusinessRules
     {
-        //Constants
-        const int MAX_EMPLOYEES = 10;
-        const int START_INDEX = 0;
-        //public
-        private Employee[] employees = new Employee[MAX_EMPLOYEES];
-
-        //private
+        private const uint START_EMP_ID = 0;
+        FileIO database;       
         private static BusinessRules instance;
-        private static int index;
+        public static uint NextEmployeeId = START_EMP_ID;
 
-        private BusinessRules() { }
+        private BusinessRules()
+        {
+            this.database = new FileIO();
+            this.database.EmployeeDB = new SortedDictionary<uint, Employee>();
+        }
 
         /// <summary>
         /// Lazy loads the class (singlton)
@@ -26,7 +29,6 @@
             {
                 if (instance == null)
                 {
-                    index = START_INDEX;
                     instance = new BusinessRules();
                 }
                 return instance;
@@ -37,20 +39,50 @@
         /// Adds new employee to the list of employees
         /// </summary>
         /// <param name="employee"></param>
-        public void add(Employee employee)
+        public void Add(Employee employee)
         {
-            employees[index] = employee;
-            index++;
+            if (employee == null)
+            {
+                MessageBox.Show("There was no Employee to add");
+            }
+            else
+            {
+                employee.EmpID = NextEmployeeId;
+                database.EmployeeDB.Add(employee.EmpID, employee);
+                NextEmployeeId++;
+            }
         }
 
         /// <summary>
         /// Returns and array of Employees 
         /// </summary>
         /// <returns></returns>
-        public Employee[] get()
+        public SortedDictionary<uint, Employee> GetAll()
         {
-            return employees;
+            return database.EmployeeDB;
         }
+
+        public Employee GetEmployee(uint employeeId)
+        {
+            var emp = database.EmployeeDB[employeeId];
+            return emp;
+        }
+
+        public void Clear()
+        {
+            this.database.EmployeeDB.Clear();
+        }
+
+        public void Save()
+        {
+            database.WriteFileDB();
+        }
+
+        public void Open()
+        {
+            database.ReadFileDB();
+        }
+
     }
 }
 
