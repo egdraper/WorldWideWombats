@@ -11,8 +11,10 @@ namespace WorldWideWombats
         /// Test that all the employee objects instantiate
         /// </summary>
         /// <returns></returns>
-       public static List<Employee> ClassInstantationTest()
+       public static BusinessRules ClassInstantationTest()
         {
+            BusinessRules businessRules;
+
             var employees = new List<Employee>();
             try
             {
@@ -59,10 +61,12 @@ namespace WorldWideWombats
                     GrossSales = 12,
                 };
 
-                employees.Add(salary);
-                employees.Add(hourly);
-                employees.Add(contract);
-                employees.Add(sales);
+
+                businessRules = BusinessRules.Instantiate;
+                businessRules.add(salary);
+                businessRules.add(hourly);
+                businessRules.add(contract);
+                businessRules.add(sales);
             }
             catch
             {
@@ -71,7 +75,7 @@ namespace WorldWideWombats
             }
 
             //if all employees are instantiated without issue the test will return the items
-            return employees;
+            return businessRules;
         }
     }
 }

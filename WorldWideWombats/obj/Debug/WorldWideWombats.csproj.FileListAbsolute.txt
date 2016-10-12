@@ -10,3 +10,12 @@ C:\Users\edraper\documents\visual studio 2015\Projects\WorldWideWombats\WorldWid
 C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.exe.config
 C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.exe
 C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.pdb
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.exe.config
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.exe
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.pdb
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.csprojResolveAssemblyReference.cache
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.FormEmployee.resources
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.Properties.Resources.resources
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.csproj.GenerateResource.Cache
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.exe
+C:\Users\Eric Draper\Documents\Visual Studio 2015\Projects\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.pdb

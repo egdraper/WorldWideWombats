@@ -10,7 +10,8 @@ namespace WorldWideWombats
     public partial class FormEmployee : Form
     {
         //this stores the employees in memory.
-        private List<Employee> employees = new List<Employee>();
+        BusinessRules businessRules;
+
         public FormEmployee()
         {
             InitializeComponent();
@@ -172,25 +173,34 @@ namespace WorldWideWombats
                 default:
                     break;
             }
-            
-            //adds employee to memory
-            employees.Add(employee);
+
+            //adds employee to memory using the lazy loaded Singleton 
+            this.businessRules = BusinessRules.Instantiate;
+            this.businessRules.add(employee);
+
             clearAllBoxes();
 
             //lists emplyees that have been entered.
             lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + type.ToString());
         }
 
+        /// <summary>
+        /// Tests the BusinessRules class
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnTestData_Click(object sender, EventArgs e)
         {
             lblTestPassFail.Visible = true;
-            var testEmployees = Test.ClassInstantationTest();
+            BusinessRules testEmployees = Test.ClassInstantationTest();
             if (testEmployees != null)
             {
-                foreach(Employee emp in testEmployees)
+                foreach(Employee emp in testEmployees.get())
                 {
-                    lboxEmployees.Items.Add(emp.FirstName + " " + emp.LastName + "; " + emp.EmpType.ToString());
-                }  
+                    if(emp != null)
+                        lboxEmployees.Items.Add(emp.FirstName + " " + emp.LastName + "; " + emp.EmpType.ToString());
+                }
+
                 lblTestPassFail.ForeColor = System.Drawing.Color.Green;
                 lblTestPassFail.Text = "Test Passed";
             }
