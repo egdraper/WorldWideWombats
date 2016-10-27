@@ -28,3 +28,12 @@ C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWi
 C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.csproj.GenerateResource.Cache
 C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.exe
 C:\Users\edraper\Documents\Visual Studio 2015\Projects\WorldWideWombats2\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.pdb
+C:\Repos\School\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.exe.config
+C:\Repos\School\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.exe
+C:\Repos\School\WorldWideWombats\WorldWideWombats\bin\Debug\WorldWideWombats.pdb
+C:\Repos\School\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.csprojResolveAssemblyReference.cache
+C:\Repos\School\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.FormEmployee.resources
+C:\Repos\School\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.Properties.Resources.resources
+C:\Repos\School\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.csproj.GenerateResource.Cache
+C:\Repos\School\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.exe
+C:\Repos\School\WorldWideWombats\WorldWideWombats\obj\Debug\WorldWideWombats.pdb

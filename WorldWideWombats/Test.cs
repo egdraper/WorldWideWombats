@@ -14,7 +14,6 @@ namespace WorldWideWombats
        public static BusinessRules ClassInstantationTest()
         {
             BusinessRules businessRules;
-            
 
             try
             {
@@ -22,8 +21,8 @@ namespace WorldWideWombats
                 var contract = new Contract()
                 {
                     EmpType = EType.CONTRACT,
-                    FirstName = "c_First",
-                    LastName = "c_Last",
+                    FirstName = "Roger",
+                    LastName = "Chriation",
                     ContractWage = 25
                 };
                 
@@ -31,8 +30,8 @@ namespace WorldWideWombats
                 var hourly = new Hourly()
                 {
                     EmpType = EType.HOURLY,
-                    FirstName = "h_First",
-                    LastName = "h_Last",
+                    FirstName = "Billy",
+                    LastName = "McNilloy",
                     HourlyRate = 25,
                     HoursWorked = 25
                 };
@@ -41,8 +40,8 @@ namespace WorldWideWombats
                 var salary = new Salary()
                 {
                     EmpType = EType.SALARY,
-                    FirstName = "sa_First",
-                    LastName = "sa_Last",
+                    FirstName = "Frank",
+                    LastName = "Allision",
                     MonthlySalary = 225,
                 };
 
@@ -50,8 +49,8 @@ namespace WorldWideWombats
                 var sales = new Sales()
                 {
                     EmpType = EType.SALES,
-                    FirstName = "s_First",
-                    LastName = "s_Last",
+                    FirstName = "Robertson",
+                    LastName = "Blander",
                     MonthlySalary = 226,
                     Commission = 123,
                     GrossSales = 12,

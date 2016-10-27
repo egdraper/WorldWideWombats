@@ -1,6 +1,11 @@
-﻿using System.Collections;
+﻿using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace WorldWideWombats
 {
@@ -81,6 +86,44 @@ namespace WorldWideWombats
         public void Open()
         {
             database.ReadFileDB();
+        }
+
+        public Employee Search(string searchItem)
+        {
+            return database.EmployeeDB.FirstOrDefault(emp => emp.Value.LastName == searchItem ||
+                       emp.Value.EmpID.ToString() == searchItem).Value;
+        }
+
+        public bool CheckName(string name)
+        { 
+            return Regex.IsMatch(name, @"^[a-zA-Z]+$");
+        }
+
+        public bool CheckHoursAndWages(string hoursOrWages)
+        {
+            return Regex.IsMatch(hoursOrWages, @"^-?\d*\.?\d*");
+        }
+
+        public bool AddCourse(string name, string cost, string credits, bool currentlyEnrolled, Employee currEmployee)
+        {
+            int cleanCredit;
+            double cleanCost;
+            if (!int.TryParse(credits, out cleanCredit))
+            )
+                return false;
+            }
+
+
+
+        var course = new Course()
+            {
+                Cost = cost,
+                Credits = credits,
+                Name = name,
+                CurrentlyEnrolled = currentlyEnrolled
+            };
+
+            currEmployee.Courses.Add(course.Name, course);
         }
 
     }

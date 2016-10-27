@@ -10,7 +10,8 @@ namespace WorldWideWombats
     public partial class FormEmployee : Form
     {
         //this stores the employees in memory.
-        BusinessRules businessRules;
+        private BusinessRules businessRules;
+        private Employee SelectedEmployee;
 
         public FormEmployee()
         {
@@ -18,7 +19,7 @@ namespace WorldWideWombats
             EmployeeType.DataSource = Enum.GetNames(typeof(EType));
             this.businessRules = BusinessRules.Instantiate;
             this.UpdateEmployeeId();
-
+            
         }
 
         /// <summary>
@@ -120,9 +121,23 @@ namespace WorldWideWombats
         //Submits the info to the database  (aka: list in memory)
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+
+            lblError.Visible = false;
+            if (!businessRules.CheckName(tboxFirstName.Text))
+            {
+                lblError.Visible = true;
+                return;
+            }
+
+            if (!businessRules.CheckName(tboxLastName.Text))
+            {
+                lblError.Visible = true;
+                return;
+            }
+
             var type = GetEmployeeType();
             Employee employee = null;
-
+            
             try
             {
                 //creates and instance for the type chosen
@@ -136,6 +151,11 @@ namespace WorldWideWombats
                             LastName = tboxLastName.Text,
                             MonthlySalary = Convert.ToDouble(tboxMonthlySalary.Text)
                         };
+                        if (!businessRules.CheckHoursAndWages(tboxMonthlySalary.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
 
                         break;
                     case EType.SALES:
@@ -148,6 +168,22 @@ namespace WorldWideWombats
                             GrossSales = Convert.ToDouble(tboxGrossSalary.Text),
                             Commission = Convert.ToDouble(tboxCommission.Text)
                         };
+
+                        if (!businessRules.CheckHoursAndWages(tboxMonthlySalary.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
+                        if (!businessRules.CheckHoursAndWages(tboxGrossSalary.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
+                        if (!businessRules.CheckHoursAndWages(tboxCommission.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
                         break;
                     case EType.HOURLY:
                         employee = new Hourly()
@@ -158,7 +194,16 @@ namespace WorldWideWombats
                             HourlyRate = Convert.ToDouble(tboxHourlyRate.Text),
                             HoursWorked = Convert.ToDouble(tboxHoursWorked.Text)
                         };
-
+                        if (!businessRules.CheckHoursAndWages(tboxHourlyRate.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
+                        if (!businessRules.CheckHoursAndWages(tboxHoursWorked.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
                         break;
                     case EType.CONTRACT:
                         employee = new Contract()
@@ -168,6 +213,11 @@ namespace WorldWideWombats
                             LastName = tboxLastName.Text,
                             ContractWage = Convert.ToDouble(tboxContractWage.Text)
                         };
+                        if (!businessRules.CheckHoursAndWages(tboxContractWage.Text))
+                        {
+                            lblError.Visible = true;
+                            return;
+                        }
                         break;
                     default:
                         break;
@@ -177,7 +227,7 @@ namespace WorldWideWombats
                 clearAllBoxes();
 
                 //lists emplyees that have been entered.
-                lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + type.ToString());
+                lboxEmployees.Items.Add(employee.EmpID + ":  " + employee.FirstName + " " + employee.LastName + " --- " + type);
 
             }
             catch
@@ -205,7 +255,7 @@ namespace WorldWideWombats
                 {
                     var employee = emp.Value;
                     if (emp.Value != null)
-                        lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + employee.EmpType.ToString());
+                        lboxEmployees.Items.Add(employee.EmpID + ":  " + employee.FirstName + " " + employee.LastName + " --- " + employee.EmpType);
                 }
 
                 lblTestPassFail.ForeColor = System.Drawing.Color.Green;
@@ -239,9 +289,55 @@ namespace WorldWideWombats
             {
                 var employee = emp.Value;
                 if (emp.Value != null)
-                    lboxEmployees.Items.Add(employee.FirstName + " " + employee.LastName + "; " + employee.EmpType.ToString());
+                    lboxEmployees.Items.Add(employee.EmpID + ":  " + employee.FirstName + " " + employee.LastName + " --- " + employee.EmpType);
             }
 
+        }
+
+    
+
+        private void btnShowAll_Click(object sender, EventArgs e)
+        {
+            lboxEmployees.Items.Clear();
+            foreach (var emp in businessRules.GetAll())
+            {
+                var employee = emp.Value;
+                if (emp.Value != null)
+                    lboxEmployees.Items.Add(employee.EmpID + ":  " + employee.FirstName + " " + employee.LastName + " --- " + employee.EmpType);
+            }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cboxApproved_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cboxApproved.Checked == true)
+                pnlCourses.Enabled = true;
+            else
+                pnlCourses.Enabled = false;
+        }
+
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            var searchedEmployee = businessRules.Search(tboxSearch.Text);
+            lblFirstNameVar.Text = searchedEmployee.FirstName;
+            lblLastNameVar.Text = searchedEmployee.LastName;
+            lblPayTypeVar.Text = searchedEmployee.EmpType.ToString();
+            cboxApproved.Checked = searchedEmployee.ApprovedForTruition;
+
+            foreach (var courses in searchedEmployee.Courses)
+            {
+                lboxCourseList.Items.Add(courses.Value.Name + "---->Credits:" + courses.Value.Credits);
+            }
+
+        }
+
+        private void btnAddCourse_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
