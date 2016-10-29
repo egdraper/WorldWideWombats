@@ -19,7 +19,7 @@ namespace WorldWideWombats
     public class Course
     {
         public string Name { get; set; }
-        public int Cost { get; set; }
+        public double Cost { get; set; }
         public int Credits { get; set; }
         public bool CurrentlyEnrolled { get; set; } 
     }

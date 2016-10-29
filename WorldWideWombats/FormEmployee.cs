@@ -315,7 +315,10 @@ namespace WorldWideWombats
         private void cboxApproved_CheckedChanged(object sender, EventArgs e)
         {
             if (cboxApproved.Checked == true)
+            {
+                SelectedEmployee.ApprovedForTruition = true;
                 pnlCourses.Enabled = true;
+            }                
             else
                 pnlCourses.Enabled = false;
         }
@@ -323,21 +326,68 @@ namespace WorldWideWombats
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
             var searchedEmployee = businessRules.Search(tboxSearch.Text);
-            lblFirstNameVar.Text = searchedEmployee.FirstName;
-            lblLastNameVar.Text = searchedEmployee.LastName;
-            lblPayTypeVar.Text = searchedEmployee.EmpType.ToString();
-            cboxApproved.Checked = searchedEmployee.ApprovedForTruition;
-
-            foreach (var courses in searchedEmployee.Courses)
+            this.SelectedEmployee = searchedEmployee;
+            this.clearCourseBoxes(true);
+            if (searchedEmployee != null)
             {
-                lboxCourseList.Items.Add(courses.Value.Name + "---->Credits:" + courses.Value.Credits);
-            }
 
+                cboxApproved.Enabled = true;
+                lblIdVar.Text = searchedEmployee.EmpID.ToString();
+                lblFirstNameVar.Text = searchedEmployee.FirstName;
+                lblLastNameVar.Text = searchedEmployee.LastName;
+                lblPayTypeVar.Text = searchedEmployee.EmpType.ToString();
+                cboxApproved.Checked = searchedEmployee.ApprovedForTruition;
+
+                if (searchedEmployee.Courses != null)
+                {
+                    foreach (var courses in searchedEmployee.Courses)
+                    {
+                        lboxCourseList.Items.Add(courses.Value.Name + "---->Credits:" + courses.Value.Credits + "; Enroled: " + courses.Value.CurrentlyEnrolled);
+                    }
+                }
+
+                pnlCourses.Enabled = searchedEmployee.ApprovedForTruition;
+                
+            }
+            else
+            {
+                cboxApproved.Enabled = false;
+                pnlCourses.Enabled = false;
+            }
         }
 
         private void btnAddCourse_Click(object sender, EventArgs e)
         {
-           
+            lblCourseError.Visible = false;
+            var insertResults = this.businessRules.AddCourse(
+                tboxCourse.Text,
+                tboxCourseCost.Text,
+                tboxCourseCredits.Text,
+                cboxCurrenltyEnroled.Checked,
+                this.SelectedEmployee);
+
+            if(insertResults == false)
+            {
+                lblCourseError.Visible = true;
+                return;
+            }
+
+            lboxCourseList.Items.Add(tboxCourse.Text + "---->Credits:" + tboxCourseCredits.TextAlign + "; Enroled: " + cboxCurrenltyEnroled.Checked);
+
+            clearCourseBoxes(false);
+        }
+
+        private void clearCourseBoxes(bool clearCourseList)
+        {
+            if (clearCourseList)
+            {
+                lboxCourseList.Items.Clear();
+            }
+
+            tboxCourse.Text = string.Empty;
+            tboxCourseCost.Text = string.Empty;
+            tboxCourseCredits.Value = 0;
+            cboxCurrenltyEnroled.Checked = false;
         }
     }
 }

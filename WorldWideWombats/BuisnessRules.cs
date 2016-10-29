@@ -109,21 +109,31 @@ namespace WorldWideWombats
             int cleanCredit;
             double cleanCost;
             if (!int.TryParse(credits, out cleanCredit))
-            )
+            { 
                 return false;
             }
 
-
-
-        var course = new Course()
+            if (!double.TryParse(cost, out cleanCost))
             {
-                Cost = cost,
-                Credits = credits,
+                return false;
+            }
+
+            if(currEmployee.Courses == null)
+            {
+                currEmployee.Courses = new Dictionary<string, Course>();
+            }
+
+            var course = new Course()
+            {
+                Cost = cleanCost,
+                Credits = cleanCredit,
                 Name = name,
                 CurrentlyEnrolled = currentlyEnrolled
             };
-
+            
             currEmployee.Courses.Add(course.Name, course);
+
+            return true;
         }
 
     }
