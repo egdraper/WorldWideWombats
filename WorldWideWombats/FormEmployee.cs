@@ -247,6 +247,7 @@ namespace WorldWideWombats
         /// <param name="e"></param>
         private void btnTestData_Click(object sender, EventArgs e)
         {
+            lboxEmployees.Items.Clear();
             lblTestPassFail.Visible = true;
             BusinessRules testEmployees = Test.ClassInstantationTest();
             if (testEmployees != null)
@@ -280,6 +281,11 @@ namespace WorldWideWombats
             businessRules.Save();
         }
 
+        /// <summary>
+        /// opens and existing name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenExistin_Click(object sender, EventArgs e)
         {
             businessRules.Open();
@@ -291,11 +297,13 @@ namespace WorldWideWombats
                 if (emp.Value != null)
                     lboxEmployees.Items.Add(employee.EmpID + ":  " + employee.FirstName + " " + employee.LastName + " --- " + employee.EmpType);
             }
-
         }
 
-    
-
+        /// <summary>
+        /// shows all the users
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnShowAll_Click(object sender, EventArgs e)
         {
             lboxEmployees.Items.Clear();
@@ -306,12 +314,12 @@ namespace WorldWideWombats
                     lboxEmployees.Items.Add(employee.EmpID + ":  " + employee.FirstName + " " + employee.LastName + " --- " + employee.EmpType);
             }
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+       
+        /// <summary>
+        /// This box tell if the employee has been approved for tuition assistance. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboxApproved_CheckedChanged(object sender, EventArgs e)
         {
             if (cboxApproved.Checked == true)
@@ -323,14 +331,18 @@ namespace WorldWideWombats
                 pnlCourses.Enabled = false;
         }
 
+        /// <summary>
+        /// searches for an employee by the last name or ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
             var searchedEmployee = businessRules.Search(tboxSearch.Text);
             this.SelectedEmployee = searchedEmployee;
             this.clearCourseBoxes(true);
             if (searchedEmployee != null)
-            {
-
+            { 
                 cboxApproved.Enabled = true;
                 lblIdVar.Text = searchedEmployee.EmpID.ToString();
                 lblFirstNameVar.Text = searchedEmployee.FirstName;
@@ -356,6 +368,11 @@ namespace WorldWideWombats
             }
         }
 
+        /// <summary>
+        /// Add a couse to the current employee
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddCourse_Click(object sender, EventArgs e)
         {
             lblCourseError.Visible = false;
@@ -377,6 +394,10 @@ namespace WorldWideWombats
             clearCourseBoxes(false);
         }
 
+        /// <summary>
+        /// Clears the text box after the course has bee entered.
+        /// </summary>
+        /// <param name="clearCourseList"></param>
         private void clearCourseBoxes(bool clearCourseList)
         {
             if (clearCourseList)
@@ -388,6 +409,21 @@ namespace WorldWideWombats
             tboxCourseCost.Text = string.Empty;
             tboxCourseCredits.Value = 0;
             cboxCurrenltyEnroled.Checked = false;
+        }
+
+        private void lboxEmployees_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the currently selected item in the ListBox.
+            string curItem = lboxEmployees.SelectedItem.ToString();
+            // Get the currently selected item in the ListBox.
+            tabControl1.SelectedIndex = 1;
+            tboxSearch.Text = curItem.Substring(0, curItem.IndexOf(':'));
+            btnSearch.PerformClick();
+        }
+
+        private void lboxCourseList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

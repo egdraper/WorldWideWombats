@@ -67,43 +67,83 @@ namespace WorldWideWombats
             return database.EmployeeDB;
         }
 
+
+        /// <summary>
+        /// gets and employee by the ID
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public Employee GetEmployee(uint employeeId)
         {
             var emp = database.EmployeeDB[employeeId];
             return emp;
         }
 
+        /// <summary>
+        /// clears the current database
+        /// </summary>
         public void Clear()
         {
             this.database.EmployeeDB.Clear();
         }
 
+        /// <summary>
+        /// saves the file
+        /// </summary>
         public void Save()
         {
             database.WriteFileDB();
         }
 
+        /// <summary>
+        /// opens the file
+        /// </summary>
         public void Open()
         {
             database.ReadFileDB();
         }
 
+        /// <summary>
+        /// searches for a name either by last name or id
+        /// </summary>
+        /// <param name="searchItem"></param>
+        /// <returns></returns>
         public Employee Search(string searchItem)
         {
             return database.EmployeeDB.FirstOrDefault(emp => emp.Value.LastName == searchItem ||
                        emp.Value.EmpID.ToString() == searchItem).Value;
         }
 
+        /// <summary>
+        /// Checks the name format
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool CheckName(string name)
         { 
             return Regex.IsMatch(name, @"^[a-zA-Z]+$");
         }
 
+
+        /// <summary>
+        /// checks the number format
+        /// </summary>
+        /// <param name="hoursOrWages"></param>
+        /// <returns></returns>
         public bool CheckHoursAndWages(string hoursOrWages)
         {
             return Regex.IsMatch(hoursOrWages, @"^-?\d*\.?\d*");
         }
 
+        /// <summary>
+        /// Adds the course to the current list
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="cost"></param>
+        /// <param name="credits"></param>
+        /// <param name="currentlyEnrolled"></param>
+        /// <param name="currEmployee"></param>
+        /// <returns></returns>
         public bool AddCourse(string name, string cost, string credits, bool currentlyEnrolled, Employee currEmployee)
         {
             int cleanCredit;
