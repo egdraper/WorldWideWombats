@@ -6,6 +6,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System;
 
 namespace WorldWideWombats
 {
@@ -144,7 +145,7 @@ namespace WorldWideWombats
         /// <param name="currentlyEnrolled"></param>
         /// <param name="currEmployee"></param>
         /// <returns></returns>
-        public bool AddCourse(string name, string cost, string credits, bool currentlyEnrolled, Employee currEmployee)
+        public bool AddCourse(string name, string cost, string credits, DateTime startDate, DateTime endDate, Employee currEmployee)
         {
             int cleanCredit;
             double cleanCost;
@@ -168,12 +169,46 @@ namespace WorldWideWombats
                 Cost = cleanCost,
                 Credits = cleanCredit,
                 Name = name,
-                CurrentlyEnrolled = currentlyEnrolled
+                StartDate = startDate,
+                EndDate = endDate,
             };
             
             currEmployee.Courses.Add(course.Name, course);
 
             return true;
+        }
+
+        public uint getNext()
+        {
+            if (FileIO.currentIndex == database.EmployeeDB.Count - 1)
+                return 999999;
+            else
+                return database.EmployeeDB[++FileIO.currentIndex].EmpID;
+        }
+
+        public uint getPrevious()
+        {
+            if (FileIO.currentIndex > 0)
+                return database.EmployeeDB[--FileIO.currentIndex].EmpID;
+            else
+                return 999999;
+        }
+
+        public bool checkNext()
+        {
+            if (FileIO.currentIndex < database.EmployeeDB.Count - 1)
+                return true;
+            else
+                return false;
+            
+        }
+
+        public bool checkPrev()
+        {
+            if (FileIO.currentIndex > 0)
+                return true;
+            else
+                return false;
         }
 
     }

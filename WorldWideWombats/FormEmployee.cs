@@ -338,6 +338,7 @@ namespace WorldWideWombats
         /// <param name="e"></param>
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
+            resetCourseApproval();
             var searchedEmployee = businessRules.Search(tboxSearch.Text);
             this.SelectedEmployee = searchedEmployee;
             this.clearCourseBoxes(true);
@@ -354,7 +355,7 @@ namespace WorldWideWombats
                 {
                     foreach (var courses in searchedEmployee.Courses)
                     {
-                        lboxCourseList.Items.Add(courses.Value.Name + "---->Credits:" + courses.Value.Credits + "; Enroled: " + courses.Value.CurrentlyEnrolled);
+                        lboxCourseList.Items.Add(courses.Value.Name);
                     }
                 }
 
@@ -380,7 +381,8 @@ namespace WorldWideWombats
                 tboxCourse.Text,
                 tboxCourseCost.Text,
                 tboxCourseCredits.Text,
-                cboxCurrenltyEnroled.Checked,
+                dtpStartDate.Value,
+                dtpEndDate.Value,
                 this.SelectedEmployee);
 
             if(insertResults == false)
@@ -389,7 +391,7 @@ namespace WorldWideWombats
                 return;
             }
 
-            lboxCourseList.Items.Add(tboxCourse.Text + "---->Credits:" + tboxCourseCredits.TextAlign + "; Enroled: " + cboxCurrenltyEnroled.Checked);
+            lboxCourseList.Items.Add(tboxCourse);
 
             clearCourseBoxes(false);
         }
@@ -408,22 +410,152 @@ namespace WorldWideWombats
             tboxCourse.Text = string.Empty;
             tboxCourseCost.Text = string.Empty;
             tboxCourseCredits.Value = 0;
-            cboxCurrenltyEnroled.Checked = false;
+            tboxCourseDescription.Text = string.Empty;
+            dtpEndDate.Value = DateTime.Now;
+            dtpStartDate.Value = DateTime.Now;
+            
         }
 
         private void lboxEmployees_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Get the currently selected item in the ListBox.
-            string curItem = lboxEmployees.SelectedItem.ToString();
-            // Get the currently selected item in the ListBox.
-            tabControl1.SelectedIndex = 1;
-            tboxSearch.Text = curItem.Substring(0, curItem.IndexOf(':'));
-            btnSearch.PerformClick();
+            if (lboxEmployees.SelectedItem != null)
+            {
+                // Get the currently selected item in the ListBox.
+                string curItem = lboxEmployees.SelectedItem.ToString();
+                // Get the currently selected item in the ListBox.
+                tabControl1.SelectedIndex = 1;
+                tboxSearch.Text = curItem.Substring(0, curItem.IndexOf(':'));
+                btnSearch.PerformClick();
+                FileIO.currentIndex = SelectedEmployee.EmpID;
+            }   
         }
 
         private void lboxCourseList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (this.SelectedEmployee.Courses.Count != 0)
+            {
+                resetCourseApproval();
 
+                var course = SelectedEmployee.Courses[lboxCourseList.SelectedItem.ToString()];
+
+                lblCostSelection.Text = course.Cost.ToString();
+                lblCoursSelection.Text = course.Name;
+                lblCreditSelection.Text = course.Credits.ToString();
+                if (course.Grade != null)
+                    cboxGradSelection.Text = course.Grade;
+
+                if (course.Approved)
+                {
+                    lblDateApproved.Text = course.ApprovedDate.ToString();
+                    lblDateApproved.Visible = true;
+                    lblApprovedLabel.Visible = false;
+                    lblApprove.Visible = false;
+                    btnApprove.Visible = false;
+                    btnApprove.Enabled = false;
+                }
+                else
+                {
+                    lblApprove.Visible = true;
+                    btnApprove.Visible = true;
+                    btnApprove.Enabled = false;
+                }
+
+            }
+            else
+            {
+                resetCourseApproval();
+            }
+             
+        }
+
+        private void resetCourseApproval()
+        {
+            lblCostSelection.Text = "Not Enrolled";
+            lblCoursSelection.Text = "Not Enrolled";
+            lblCreditSelection.Text = "Not Enrolled";
+            cboxGradSelection.Text = "Not Enrolled";
+            lblDateApproved.Visible = false;
+            lblApprove.Visible = true;
+            btnApprove.Visible = true;
+            btnApprove.Enabled = false;
+            cboxGradSelection.Text = string.Empty;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            var previous = businessRules.getPrevious();
+            if (previous == 999999)
+                btnBack.Enabled = false;
+            else
+            {
+                tboxSearch.Text = previous.ToString();
+                btnSearch.PerformClick();
+            }
+            if (businessRules.checkNext())
+            {
+                btnFoward.Enabled = true;
+            }
+
+        }
+
+        private void btnFoward_Click(object sender, EventArgs e)
+        {          
+            var next = businessRules.getNext();
+            if (next == 999999)
+                btnFoward.Enabled = false;
+            else
+            {
+                tboxSearch.Text = next.ToString();
+                btnSearch.PerformClick();
+            }
+
+            if (businessRules.checkPrev())
+            {
+                btnBack.Enabled = true;
+            }
+        }
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+
+            //Do Work
+            resetCourseApproval();
+        }
+
+        private void cboxGradSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(SelectedEmployee.EmpType == EType.SALARY)
+            {
+                if (cboxGradSelection.SelectedIndex < 3)
+                {
+                    lblGradeInsificient.Visible = true;
+                    btnApprove.Enabled = false;
+                }
+                return;
+            }
+
+            if (SelectedEmployee.EmpType == EType.SALES)
+            {
+                if (cboxGradSelection.SelectedIndex < 6)
+                {
+                    lblGradeInsificient.Visible = true;
+                    btnApprove.Enabled = false;
+                }
+                return;
+            }
+
+            if (SelectedEmployee.EmpType == EType.HOURLY)
+            {
+                if (cboxGradSelection.SelectedIndex < 5)
+                {
+                    lblGradeInsificient.Visible = true;
+                    btnApprove.Enabled = false;
+                }
+                return;
+            }
+
+
+            btnApprove.Enabled = true;
         }
     }
 }

@@ -28,35 +28,46 @@ namespace WorldWideWombats
                     Courses = new Dictionary<string, Course>()
                     {
                         {
-                            "Transmission Studies",
+                            "TECH2342",
                             new Course()
                             {
                                 Cost = 2100,
                                 Credits = 3,
-                                CurrentlyEnrolled = false,
-                                Name = "Transmission Studies",
-                                Id = 83923
+                                Name = "TECH2342",
+                                Id = 83923,
+                                Description = "Transmission Studies",
+                                StartDate = new System.DateTime(2016, 1, 3),
+                                EndDate = new System.DateTime(2016, 5, 12),
+                                Approved = false   
                             }
                         },
                         {
-                            "College Algabra",
+                            "GEO2453",
                             new Course()
                             {
                                 Cost = 2500,
                                 Credits = 4,
-                                CurrentlyEnrolled = false,
-                                Name = "College Algabra",
-                                Id = 83923
+                                Name = "GEO2453",
+                                Id = 83923,
+                                Description = "Geology",
+                                StartDate = new System.DateTime(2016, 1, 3),
+                                EndDate = new System.DateTime(2016, 5, 12),
+                                Approved = false
                             }
                         },{
-                            "Dog Studies",
+                            "DOG3843",
                             new Course()
                             {
                                 Cost = 2200,
                                 Credits = 3,
-                                CurrentlyEnrolled = true,
-                                Name = "Dog Studies",
-                                Id = 83923
+                                Name = "DOG3843",
+                                Id = 83923,
+                                Description = "Dog Studies",
+                                StartDate = new System.DateTime(2015, 8, 15),
+                                EndDate = new System.DateTime(2015, 12, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2015, 12, 20),
+                                Grade= "B-"
                             }
                         },
                     }
@@ -65,7 +76,7 @@ namespace WorldWideWombats
 
                 //check Hourly
                 var hourly = new Hourly()
-                { 
+                {
                     EmpType = EType.HOURLY,
                     FirstName = "Billy",
                     LastName = "McNilloy",
@@ -75,35 +86,48 @@ namespace WorldWideWombats
                     Courses = new Dictionary<string, Course>()
                     {
                         {
-                            "Life Adventures",
+                            "HLT3243",
                             new Course()
                             {
                                 Cost = 2132,
                                 Credits = 3,
-                                CurrentlyEnrolled = false,
-                                Name = "Life Adventures",
-                                Id = 83923
+                                Name = "HLT3243",
+                                Id = 83923,
+                                Description = "Life Adventures",
+                                StartDate = new System.DateTime(2015, 8, 15),
+                                EndDate = new System.DateTime(2015, 12, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2015, 12, 20),
+                                Grade="A"
                             }
                         },
                         {
-                            "Calculus 2",
+                            "MAT2142",
                             new Course()
                             {
                                 Cost = 3500,
-                                Credits = 6,
-                                CurrentlyEnrolled = true,
-                                Name = "Calculus 2",
-                                Id = 83923
+                                Credits = 5,
+                                Name = "MAT2142",
+                                Id = 83923,
+                                Description = "Calculus 2",
+                                StartDate = new System.DateTime(2015, 8, 15),
+                                EndDate = new System.DateTime(2015, 12, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2015, 12, 20),
+                                Grade = "B"
                             }
                         },{
-                            "Dog Studies",
+                            "DOG3843",
                             new Course()
                             {
                                 Cost = 2200,
                                 Credits = 3,
-                                CurrentlyEnrolled = true,
-                                Name = "Dog Studies",
-                                Id = 83923
+                                Name = "DOG3843",
+                                Id = 83923,
+                                Description = "Dog Studies",
+                                StartDate = new System.DateTime(2016, 8, 15),
+                                EndDate = new System.DateTime(2016, 12, 15),
+                                Approved = false,
                             }
                         },
                     }
@@ -154,24 +178,32 @@ namespace WorldWideWombats
                     Courses = new Dictionary<string, Course>()
                     {
                         {
-                            "Life Adventures",
+                            "HLT3243",
                             new Course()
                             {
                                 Cost = 2132,
                                 Credits = 3,
-                                CurrentlyEnrolled = false,
-                                Name = "Life Adventures",
-                                Id = 83923
+                                Name = "HLT3243",
+                                Id = 83923,
+                                Description = "Life Adventures",
+                                StartDate = new System.DateTime(2016, 8, 15),
+                                EndDate = new System.DateTime(2016, 12, 15),
+                                Approved = false
                             }
                         },{
-                            "Dog Studies",
+                           "DOG3843",
                             new Course()
                             {
                                 Cost = 2200,
                                 Credits = 3,
-                                CurrentlyEnrolled = true,
-                                Name = "Dog Studies",
-                                Id = 83923
+                                Name = "DOG3843",
+                                Id = 83923,
+                                Description = "Dog Studies",
+                                StartDate = new System.DateTime(2016, 1, 5),
+                                EndDate = new System.DateTime(2016, 5, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2016, 5, 28),
+                                Grade = "A-"
                             }
                         },
                     }
@@ -189,24 +221,34 @@ namespace WorldWideWombats
                     Courses = new Dictionary<string, Course>()
                     {
                         {
-                            "Spamming Tech",
+                            "MAT2142",
                             new Course()
                             {
-                                Cost = 2132,
-                                Credits = 3,
-                                CurrentlyEnrolled = false,
-                                Name = "Spamming tech",
-                                Id = 83923
+                                Cost = 3500,
+                                Credits = 5,
+                                Name = "MAT2142",
+                                Id = 83923,
+                                Description = "Calculus 2",
+                                StartDate = new System.DateTime(2015, 8, 15),
+                                EndDate = new System.DateTime(2015, 12, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2015, 12, 20),
+                                Grade = "B+"
                             }
                         },{
-                            "Dog Studies",
+                            "DOG3843",
                             new Course()
                             {
                                 Cost = 2200,
                                 Credits = 3,
-                                CurrentlyEnrolled = false,
-                                Name = "Dog Studies",
-                                Id = 83923
+                                Name = "DOG3843",
+                                Id = 83923,
+                                Description = "Dog Studies",
+                                StartDate = new System.DateTime(2016, 1, 5),
+                                EndDate = new System.DateTime(2016, 5, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2016, 5, 28),
+                                Grade = "B-"
                             }
                         },
                     }
@@ -241,7 +283,6 @@ namespace WorldWideWombats
                     HourlyRate = 10,
                     HoursWorked = 12,
                     ApprovedForTruition = false,
-                    
                 };
 
                 //Check Salary
@@ -255,26 +296,33 @@ namespace WorldWideWombats
                     Courses = new Dictionary<string, Course>()
                     {
                         {
-                            "Dancing",
+                            "GEO2453",
                             new Course()
                             {
-                                Cost = 1200,
-                                Credits = 2,
-                                CurrentlyEnrolled = false,
-                                Name = "Dancing",
-                                Id = 83923
+                                Cost = 2500,
+                                Credits = 4,
+                                Name = "GEO2453",
+                                Id = 83923,
+                                Description = "Geology",
+                                StartDate = new System.DateTime(2016, 1, 3),
+                                EndDate = new System.DateTime(2016, 5, 12),
+                                Approved = false
                             }
                         },{
-                            "Dog Studies",
+                            "DOG3843",
                             new Course()
                             {
                                 Cost = 2200,
                                 Credits = 3,
-                                CurrentlyEnrolled = false,
-                                Name = "Dog Studies",
-                                Id = 83923
+                                Name = "DOG3843",
+                                Id = 83923,
+                                Description = "Dog Studies",
+                                StartDate = new System.DateTime(2015, 8, 15),
+                                EndDate = new System.DateTime(2015, 12, 15),
+                                Approved = true,
+                                ApprovedDate = new System.DateTime(2015, 12, 20)
                             }
-                        },
+                        }
                     }
 
                 };

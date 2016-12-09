@@ -8,12 +8,15 @@ namespace WorldWideWombats
 {
     public class FileIO : IFileAccess
     {
-       public SortedDictionary<uint, Employee> EmployeeDB { get; set; }
+        public const uint START_INDEX = 0;
+        public SortedDictionary<uint, Employee> EmployeeDB { get; set; }
+        public static uint currentIndex = START_INDEX;
 
         /// <summary>
         /// Writes file to the disk.
         /// </summary>
-        public void WriteFileDB() {
+        public void WriteFileDB()
+        {
             /*Taken from MSDN -> https://msdn.microsoft.com/en-us/library/system.windows.forms.openfiledialog(v=vs.110).aspx */
 
             Stream myStream;
@@ -39,7 +42,8 @@ namespace WorldWideWombats
         /// <summary>
         /// Reads file from the disk
         /// </summary>
-        public void ReadFileDB() {
+        public void ReadFileDB()
+        {
             /*Taken from MSDN -> https://msdn.microsoft.com/en-us/library/system.windows.forms.openfiledialog(v=vs.110).aspx */
 
             Stream myStream = null;
@@ -75,7 +79,8 @@ namespace WorldWideWombats
         /// <summary>
         /// Originally was for opening the stream (I assume)
         /// </summary>
-        public void OpenFileDB() {
+        public void OpenFileDB()
+        {
             //This function is not necessary any more because the open file dialog handles it
 
         }
@@ -83,7 +88,8 @@ namespace WorldWideWombats
         /// <summary>
         /// origianlly was for closing the stream (I assume)
         /// </summary>
-        public void CloseFileDB() {
+        public void CloseFileDB()
+        {
             //This function is not necessary any more because the open file dialog handles it
         }
 

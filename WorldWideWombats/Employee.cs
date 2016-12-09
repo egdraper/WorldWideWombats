@@ -20,9 +20,14 @@ namespace WorldWideWombats
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string Grade { get; set; }
         public double Cost { get; set; }
         public int Credits { get; set; }
-        public bool CurrentlyEnrolled { get; set; } 
+        public bool Approved { get; set; }
+        public DateTime ApprovedDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 
 }
