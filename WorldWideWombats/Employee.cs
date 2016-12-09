@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace WorldWideWombats
 {
+    /// <summary>
+    /// Employee class
+    /// </summary>
     [Serializable]
     public abstract class Employee
     {
@@ -15,6 +18,9 @@ namespace WorldWideWombats
         public Dictionary<string, Course> Courses { get; set; } 
     }
 
+    /// <summary>
+    /// Course Class
+    /// </summary>
     [Serializable]
     public class Course
     {

@@ -178,6 +178,10 @@ namespace WorldWideWombats
             return true;
         }
 
+        /// <summary>
+        /// Get Next employee when scrolling
+        /// </summary>
+        /// <returns></returns>
         public uint getNext()
         {
             if (FileIO.currentIndex == database.EmployeeDB.Count - 1)
@@ -186,6 +190,10 @@ namespace WorldWideWombats
                 return database.EmployeeDB[++FileIO.currentIndex].EmpID;
         }
 
+        /// <summary>
+        /// Gets the previous employee when scrolling
+        /// </summary>
+        /// <returns></returns>
         public uint getPrevious()
         {
             if (FileIO.currentIndex > 0)
@@ -194,6 +202,10 @@ namespace WorldWideWombats
                 return 999999;
         }
 
+        /// <summary>
+        /// checks to see if there is a next employee
+        /// </summary>
+        /// <returns></returns>
         public bool checkNext()
         {
             if (FileIO.currentIndex < database.EmployeeDB.Count - 1)
@@ -203,6 +215,10 @@ namespace WorldWideWombats
             
         }
 
+        /// <summary>
+        /// checks to see if there is a previous employee
+        /// </summary>
+        /// <returns></returns>
         public bool checkPrev()
         {
             if (FileIO.currentIndex > 0)

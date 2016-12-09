@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace WorldWideWombats
 {
@@ -222,8 +223,8 @@ namespace WorldWideWombats
                     default:
                         break;
                 }
-                this.businessRules.Add(employee);
 
+                this.businessRules.Add(employee);
                 clearAllBoxes();
 
                 //lists emplyees that have been entered.
@@ -235,9 +236,7 @@ namespace WorldWideWombats
                 MessageBox.Show("Not all field have entered values. Please enter a value for every field");
             }
 
-            //adds employee to memory using the lazy loaded Singleton 
-
-
+            //adds employee to memory using the lazy loaded Singleton
         }
 
         /// <summary>
@@ -322,6 +321,15 @@ namespace WorldWideWombats
         /// <param name="e"></param>
         private void cboxApproved_CheckedChanged(object sender, EventArgs e)
         {
+
+            if(SelectedEmployee.EmpType == EType.CONTRACT)
+            {
+                lblNotEligable.Visible = true;
+                cboxApproved.Checked = false;
+                return;
+            }
+
+
             if (cboxApproved.Checked == true)
             {
                 SelectedEmployee.ApprovedForTruition = true;
@@ -338,7 +346,7 @@ namespace WorldWideWombats
         /// <param name="e"></param>
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            resetCourseApproval();
+            ResetCourseApproval();
             var searchedEmployee = businessRules.Search(tboxSearch.Text);
             this.SelectedEmployee = searchedEmployee;
             this.clearCourseBoxes(true);
@@ -391,8 +399,7 @@ namespace WorldWideWombats
                 return;
             }
 
-            lboxCourseList.Items.Add(tboxCourse);
-
+            lboxCourseList.Items.Add(tboxCourse.Text);
             clearCourseBoxes(false);
         }
 
@@ -430,59 +437,88 @@ namespace WorldWideWombats
             }   
         }
 
+        /// <summary>
+        /// Selects the course for the user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lboxCourseList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.SelectedEmployee.Courses.Count != 0)
             {
-                resetCourseApproval();
-
+                ResetCourseApproval();
+               
                 var course = SelectedEmployee.Courses[lboxCourseList.SelectedItem.ToString()];
 
-                lblCostSelection.Text = course.Cost.ToString();
+                lblCostSelection.Text = "$" + course.Cost.ToString();
                 lblCoursSelection.Text = course.Name;
                 lblCreditSelection.Text = course.Credits.ToString();
+                lblCourseStartDisp.Text = course.StartDate.ToShortDateString();
+                lblCourseEndDisp.Text = course.EndDate.ToShortDateString();
+
                 if (course.Grade != null)
+                {
                     cboxGradSelection.Text = course.Grade;
+                    cboxGradSelection.Enabled = false;
+                }
+                   
 
                 if (course.Approved)
                 {
                     lblDateApproved.Text = course.ApprovedDate.ToString();
                     lblDateApproved.Visible = true;
-                    lblApprovedLabel.Visible = false;
-                    lblApprove.Visible = false;
+                    lblDateApprovedLabel.Visible = true;;
+                    lblApproveLabel.Visible = false;
                     btnApprove.Visible = false;
                     btnApprove.Enabled = false;
                 }
                 else
                 {
-                    lblApprove.Visible = true;
+                    lblApproveLabel.Visible = true;
                     btnApprove.Visible = true;
                     btnApprove.Enabled = false;
+                    cboxGradSelection.Enabled = true;
                 }
 
             }
             else
             {
-                resetCourseApproval();
+                ResetCourseApproval();
             }
              
         }
 
-        private void resetCourseApproval()
+        /// <summary>
+        /// Resests the all the course approval info.
+        /// </summary>
+        private void ResetCourseApproval()
         {
             lblCostSelection.Text = "Not Enrolled";
             lblCoursSelection.Text = "Not Enrolled";
             lblCreditSelection.Text = "Not Enrolled";
             cboxGradSelection.Text = "Not Enrolled";
+            lblCourseStartDisp.Text = "Not Enrolled";
+            lblCourseEndDisp.Text = "Not Enrolled";
+            lblGradeInsificient.Visible = false;
             lblDateApproved.Visible = false;
-            lblApprove.Visible = true;
+            lblDateApprovedLabel.Visible = false;
+            lblApproveLabel.Visible = true;
             btnApprove.Visible = true;
             btnApprove.Enabled = false;
-            cboxGradSelection.Text = string.Empty;
+            cboxGradSelection.SelectedIndex = -1;
+            lblNotEligable.Visible = false;
+            cboxGradSelection.Enabled = false;
         }
 
+        /// <summary>
+        /// Scrolls between the users
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBack_Click(object sender, EventArgs e)
         {
+            ResetCourseApproval();
+
             var previous = businessRules.getPrevious();
             if (previous == 999999)
                 btnBack.Enabled = false;
@@ -498,8 +534,16 @@ namespace WorldWideWombats
 
         }
 
+        /// <summary>
+        /// Moves to the next employees.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFoward_Click(object sender, EventArgs e)
-        {          
+        {
+
+            ResetCourseApproval();
+
             var next = businessRules.getNext();
             if (next == 999999)
                 btnFoward.Enabled = false;
@@ -515,46 +559,61 @@ namespace WorldWideWombats
             }
         }
 
+
+        /// <summary>
+        /// Approves the employee for tuition Rembursment.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnApprove_Click(object sender, EventArgs e)
         {
+            var course = SelectedEmployee.Courses[lboxCourseList.SelectedItem.ToString()];
+            course.Approved = true;
+            course.ApprovedDate = DateTime.Now;
+            course.Grade = cboxGradSelection.Text;
 
-            //Do Work
-            resetCourseApproval();
+            ResetCourseApproval();
         }
-
+        
+        /// <summary>
+        /// Selects the Grad when getting approval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboxGradSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblGradeInsificient.Visible = false;
+
             if(SelectedEmployee.EmpType == EType.SALARY)
             {
-                if (cboxGradSelection.SelectedIndex < 3)
+                if (cboxGradSelection.SelectedIndex > 2)
                 {
                     lblGradeInsificient.Visible = true;
                     btnApprove.Enabled = false;
+                    return;
                 }
-                return;
             }
 
             if (SelectedEmployee.EmpType == EType.SALES)
             {
-                if (cboxGradSelection.SelectedIndex < 6)
+                if (cboxGradSelection.SelectedIndex > 5)
                 {
                     lblGradeInsificient.Visible = true;
                     btnApprove.Enabled = false;
+                    return;
                 }
-                return;
             }
 
             if (SelectedEmployee.EmpType == EType.HOURLY)
             {
-                if (cboxGradSelection.SelectedIndex < 5)
+                if (cboxGradSelection.SelectedIndex > 4)
                 {
                     lblGradeInsificient.Visible = true;
                     btnApprove.Enabled = false;
+                    return;
                 }
-                return;
+                
             }
-
-
             btnApprove.Enabled = true;
         }
     }

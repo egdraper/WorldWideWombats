@@ -98,7 +98,7 @@
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.btnApprove = new System.Windows.Forms.Button();
-            this.lblApprove = new System.Windows.Forms.Label();
+            this.lblApproveLabel = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblCoursSelection = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -108,12 +108,16 @@
             this.label21 = new System.Windows.Forms.Label();
             this.cboxGradSelection = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblApprovedLabel = new System.Windows.Forms.Label();
+            this.lblNotEligable = new System.Windows.Forms.Label();
+            this.lblDateApprovedLabel = new System.Windows.Forms.Label();
             this.lblDateApproved = new System.Windows.Forms.Label();
             this.tboxCourseDescription = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.lblGradeInsificient = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblCourseStartDisp = new System.Windows.Forms.Label();
+            this.lblCourseEndDisp = new System.Windows.Forms.Label();
             this.pnlHourly.SuspendLayout();
             this.pnlSalary.SuspendLayout();
             this.pnlSales.SuspendLayout();
@@ -372,9 +376,9 @@
             this.lblEmployeeListTitle.AutoSize = true;
             this.lblEmployeeListTitle.Location = new System.Drawing.Point(500, 37);
             this.lblEmployeeListTitle.Name = "lblEmployeeListTitle";
-            this.lblEmployeeListTitle.Size = new System.Drawing.Size(70, 17);
+            this.lblEmployeeListTitle.Size = new System.Drawing.Size(113, 17);
             this.lblEmployeeListTitle.TabIndex = 20;
-            this.lblEmployeeListTitle.Text = "Employee";
+            this.lblEmployeeListTitle.Text = "Select Employee";
             // 
             // btnTestData
             // 
@@ -505,7 +509,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.lblNotEligable);
             this.tabPage2.Controls.Add(this.btnBack);
             this.tabPage2.Controls.Add(this.btnFoward);
             this.tabPage2.Controls.Add(this.panel1);
@@ -544,9 +548,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblCourseEndDisp);
+            this.panel1.Controls.Add(this.lblCourseStartDisp);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.lblGradeInsificient);
             this.panel1.Controls.Add(this.lblDateApproved);
-            this.panel1.Controls.Add(this.lblApprovedLabel);
+            this.panel1.Controls.Add(this.lblDateApprovedLabel);
             this.panel1.Controls.Add(this.cboxGradSelection);
             this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.lblCostSelection);
@@ -555,7 +563,7 @@
             this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.lblCoursSelection);
             this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.lblApprove);
+            this.panel1.Controls.Add(this.lblApproveLabel);
             this.panel1.Controls.Add(this.btnApprove);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.pnlCourses);
@@ -595,10 +603,10 @@
             this.pnlCourses.Controls.Add(this.label13);
             this.pnlCourses.Controls.Add(this.lboxCourseList);
             this.pnlCourses.Enabled = false;
-            this.pnlCourses.Location = new System.Drawing.Point(355, 51);
+            this.pnlCourses.Location = new System.Drawing.Point(446, 51);
             this.pnlCourses.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlCourses.Name = "pnlCourses";
-            this.pnlCourses.Size = new System.Drawing.Size(578, 369);
+            this.pnlCourses.Size = new System.Drawing.Size(487, 369);
             this.pnlCourses.TabIndex = 52;
             // 
             // lblCourseError
@@ -617,9 +625,9 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(265, 42);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 17);
+            this.label16.Size = new System.Drawing.Size(96, 17);
             this.label16.TabIndex = 50;
-            this.label16.Text = "Course";
+            this.label16.Text = "Select Course";
             // 
             // tboxCourseCredits
             // 
@@ -655,6 +663,7 @@
             this.tboxCourseCost.Name = "tboxCourseCost";
             this.tboxCourseCost.Size = new System.Drawing.Size(148, 22);
             this.tboxCourseCost.TabIndex = 46;
+            this.tboxCourseCost.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkForLetters);
             // 
             // tboxCourse
             // 
@@ -700,7 +709,7 @@
             this.lboxCourseList.Location = new System.Drawing.Point(268, 60);
             this.lboxCourseList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lboxCourseList.Name = "lboxCourseList";
-            this.lboxCourseList.Size = new System.Drawing.Size(294, 292);
+            this.lboxCourseList.Size = new System.Drawing.Size(192, 292);
             this.lboxCourseList.TabIndex = 42;
             this.lboxCourseList.SelectedIndexChanged += new System.EventHandler(this.lboxCourseList_SelectedIndexChanged);
             // 
@@ -802,7 +811,7 @@
             this.btnSearch.Location = new System.Drawing.Point(243, 53);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(119, 31);
+            this.btnSearch.Size = new System.Drawing.Size(119, 33);
             this.btnSearch.TabIndex = 30;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -871,14 +880,14 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(35, 185);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(280, 17);
+            this.label7.Size = new System.Drawing.Size(360, 17);
             this.label7.TabIndex = 53;
-            this.label7.Text = "__________________________________";
+            this.label7.Text = "____________________________________________";
             // 
             // btnApprove
             // 
             this.btnApprove.Enabled = false;
-            this.btnApprove.Location = new System.Drawing.Point(254, 373);
+            this.btnApprove.Location = new System.Drawing.Point(328, 372);
             this.btnApprove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnApprove.Name = "btnApprove";
             this.btnApprove.Size = new System.Drawing.Size(78, 31);
@@ -887,14 +896,14 @@
             this.btnApprove.UseVisualStyleBackColor = true;
             this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
-            // lblApprove
+            // lblApproveLabel
             // 
-            this.lblApprove.AutoSize = true;
-            this.lblApprove.Location = new System.Drawing.Point(25, 381);
-            this.lblApprove.Name = "lblApprove";
-            this.lblApprove.Size = new System.Drawing.Size(223, 17);
-            this.lblApprove.TabIndex = 57;
-            this.lblApprove.Text = "Approve Rembursment for Course";
+            this.lblApproveLabel.AutoSize = true;
+            this.lblApproveLabel.Location = new System.Drawing.Point(99, 379);
+            this.lblApproveLabel.Name = "lblApproveLabel";
+            this.lblApproveLabel.Size = new System.Drawing.Size(223, 17);
+            this.lblApproveLabel.TabIndex = 57;
+            this.lblApproveLabel.Text = "Approve Rembursment for Course";
             // 
             // label11
             // 
@@ -962,14 +971,18 @@
             // cboxGradSelection
             // 
             this.cboxGradSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxGradSelection.Enabled = false;
             this.cboxGradSelection.FormattingEnabled = true;
             this.cboxGradSelection.Items.AddRange(new object[] {
             "A",
             "A-",
+            "B+",
             "B",
             "B-",
+            "C+",
             "C",
             "C-",
+            "D+",
             "D",
             "D-",
             "F"});
@@ -989,27 +1002,27 @@
             this.label22.TabIndex = 57;
             this.label22.Text = "Add Course";
             // 
-            // label23
+            // lblNotEligable
             // 
-            this.label23.AutoSize = true;
-            this.label23.ForeColor = System.Drawing.Color.Red;
-            this.label23.Location = new System.Drawing.Point(540, 60);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(290, 17);
-            this.label23.TabIndex = 58;
-            this.label23.Text = "Person selected is not elegible for this benifit";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label23.Visible = false;
+            this.lblNotEligable.AutoSize = true;
+            this.lblNotEligable.ForeColor = System.Drawing.Color.Red;
+            this.lblNotEligable.Location = new System.Drawing.Point(540, 60);
+            this.lblNotEligable.Name = "lblNotEligable";
+            this.lblNotEligable.Size = new System.Drawing.Size(325, 17);
+            this.lblNotEligable.TabIndex = 58;
+            this.lblNotEligable.Text = "Contract Employees are not elegible for this benifit";
+            this.lblNotEligable.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblNotEligable.Visible = false;
             // 
-            // lblApprovedLabel
+            // lblDateApprovedLabel
             // 
-            this.lblApprovedLabel.AutoSize = true;
-            this.lblApprovedLabel.Location = new System.Drawing.Point(27, 364);
-            this.lblApprovedLabel.Name = "lblApprovedLabel";
-            this.lblApprovedLabel.Size = new System.Drawing.Size(107, 17);
-            this.lblApprovedLabel.TabIndex = 65;
-            this.lblApprovedLabel.Text = "Date Approved:";
-            this.lblApprovedLabel.Visible = false;
+            this.lblDateApprovedLabel.AutoSize = true;
+            this.lblDateApprovedLabel.Location = new System.Drawing.Point(27, 364);
+            this.lblDateApprovedLabel.Name = "lblDateApprovedLabel";
+            this.lblDateApprovedLabel.Size = new System.Drawing.Size(107, 17);
+            this.lblDateApprovedLabel.TabIndex = 65;
+            this.lblDateApprovedLabel.Text = "Date Approved:";
+            this.lblDateApprovedLabel.Visible = false;
             // 
             // lblDateApproved
             // 
@@ -1048,6 +1061,42 @@
             this.lblGradeInsificient.TabIndex = 67;
             this.lblGradeInsificient.Text = "Grade Insificient";
             this.lblGradeInsificient.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(212, 220);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 17);
+            this.label10.TabIndex = 60;
+            this.label10.Text = "Course Start:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(212, 255);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(91, 17);
+            this.label12.TabIndex = 68;
+            this.label12.Text = "Course Start:";
+            // 
+            // lblCourseStartDisp
+            // 
+            this.lblCourseStartDisp.AutoSize = true;
+            this.lblCourseStartDisp.Location = new System.Drawing.Point(310, 219);
+            this.lblCourseStartDisp.Name = "lblCourseStartDisp";
+            this.lblCourseStartDisp.Size = new System.Drawing.Size(88, 17);
+            this.lblCourseStartDisp.TabIndex = 69;
+            this.lblCourseStartDisp.Text = "No Selection";
+            // 
+            // lblCourseEndDisp
+            // 
+            this.lblCourseEndDisp.AutoSize = true;
+            this.lblCourseEndDisp.Location = new System.Drawing.Point(310, 255);
+            this.lblCourseEndDisp.Name = "lblCourseEndDisp";
+            this.lblCourseEndDisp.Size = new System.Drawing.Size(88, 17);
+            this.lblCourseEndDisp.TabIndex = 70;
+            this.lblCourseEndDisp.Text = "No Selection";
             // 
             // FormEmployee
             // 
@@ -1150,9 +1199,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label lblNotEligable;
         private System.Windows.Forms.Label lblDateApproved;
-        private System.Windows.Forms.Label lblApprovedLabel;
+        private System.Windows.Forms.Label lblDateApprovedLabel;
         private System.Windows.Forms.ComboBox cboxGradSelection;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label lblCostSelection;
@@ -1161,12 +1210,16 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label lblCoursSelection;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label lblApprove;
+        private System.Windows.Forms.Label lblApproveLabel;
         private System.Windows.Forms.Button btnApprove;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tboxCourseDescription;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label lblGradeInsificient;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblCourseEndDisp;
+        private System.Windows.Forms.Label lblCourseStartDisp;
+        private System.Windows.Forms.Label label12;
     }
 }
 

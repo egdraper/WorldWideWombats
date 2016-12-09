@@ -20,7 +20,7 @@ namespace WorldWideWombats
                 //check Contract
                 var contract = new Salary()
                 {
-                    EmpType = EType.CONTRACT,
+                    EmpType = EType.SALARY,
                     FirstName = "Roger",
                     LastName = "Chriation",
                     MonthlySalary = 2250,
@@ -67,7 +67,7 @@ namespace WorldWideWombats
                                 EndDate = new System.DateTime(2015, 12, 15),
                                 Approved = true,
                                 ApprovedDate = new System.DateTime(2015, 12, 20),
-                                Grade= "B-"
+                                Grade= "B+"
                             }
                         },
                     }
@@ -248,7 +248,7 @@ namespace WorldWideWombats
                                 EndDate = new System.DateTime(2016, 5, 15),
                                 Approved = true,
                                 ApprovedDate = new System.DateTime(2016, 5, 28),
-                                Grade = "B-"
+                                Grade = "A"
                             }
                         },
                     }
@@ -320,7 +320,9 @@ namespace WorldWideWombats
                                 StartDate = new System.DateTime(2015, 8, 15),
                                 EndDate = new System.DateTime(2015, 12, 15),
                                 Approved = true,
-                                ApprovedDate = new System.DateTime(2015, 12, 20)
+                                ApprovedDate = new System.DateTime(2015, 12, 20),
+                                Grade = "A-"
+                                
                             }
                         }
                     }
